@@ -20,7 +20,7 @@ let changeText = () => {
 
 let changeBtn = document.getElementById('changeBtn')
 
-changeBtn.addEventListener('click', function(){
+changeBtn.addEventListener('click', () => {
     changeText()
 })
 
