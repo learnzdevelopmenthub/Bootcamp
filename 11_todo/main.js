@@ -1,8 +1,11 @@
-let tasks = []
+let tasks = JSON.parse(localStorage.getItem('tasks')) || []
 
 let addBtnElement = document.getElementById('addBtn')
 let inputElement = document.getElementById('input')
 let resultElement = document.getElementById('result')
+
+renderTasks()
+
 
 function renderTasks(){
     resultElement.innerHTML = ''
@@ -17,8 +20,8 @@ function renderTasks(){
         let divElement = document.createElement('div')
         divElement.innerHTML = `
                                 <h1 style="text-decoration: ${item.isCompleted ? 'line-through' : 'none'}">
+                                    <input type="checkbox" ${item.isCompleted ? 'checked' : ''}>
                                     ${item.taskName}
-                                    <button class='completeBtn'>${item.isCompleted ? "Undo" : "Complete"}</button>
                                 </h1>
                                 <button class='deleteBtn'>Delete</button>
                                 `
@@ -26,7 +29,7 @@ function renderTasks(){
             deleteTask(index)
         })
 
-        divElement.querySelector('.completeBtn').addEventListener('click', ()=>{
+        divElement.querySelector('input').addEventListener('change', ()=>{
             markComplete(index)
         })
 
@@ -40,16 +43,19 @@ addBtnElement.addEventListener('click', ()=>{
         return
     }
     tasks.push({taskName: inputElement.value, isCompleted: false})
+    localStorage.setItem('tasks', JSON.stringify(tasks))
     renderTasks()
 })
 
 
 function deleteTask(index) {
     tasks.splice(index, 1)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
     renderTasks()
 }
 
 function markComplete(index) {
     tasks[index].isCompleted = !tasks[index].isCompleted
+    localStorage.setItem('tasks', JSON.stringify(tasks))
     renderTasks()
 }

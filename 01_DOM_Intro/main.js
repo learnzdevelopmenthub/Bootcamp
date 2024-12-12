@@ -9,7 +9,7 @@
 
 // arrow function
 
-let changeText = () => {
+let changeText = async () => {
     document.querySelector('#paragraph1').innerHTML = 'Paragraph 1 Changed'
 }
 
